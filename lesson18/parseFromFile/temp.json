@@ -1,0 +1,17 @@
+[
+    {
+        "students":[
+            {
+                "name":"Mirodil",
+                "lastname":"Mirsadikov",
+                "age":20
+            },
+
+            {
+                "name":"name2",
+                "lastname":"lastname2",
+                "age":99
+            }
+        ]
+    }
+]

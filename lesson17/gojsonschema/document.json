@@ -1,0 +1,15 @@
+{
+    "type": "Student",
+    "properties": {
+        "name":{
+            "type":"string"
+            ,"minLenght":1
+        },
+    "age": {
+        "type":"integer",
+        "minimum":0
+        }
+    },
+
+    "required":["nawqme","age"]   
+}

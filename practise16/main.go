@@ -1,0 +1,156 @@
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	fmt.Println(longestPalindrome("sdddadc"))
+}
+
+func longestPalindrome(s string) string {
+	var str string
+	var count, j int
+
+	for i := 1; i < len(s); i++ {
+		if s[i] == s[i-1] {
+			count := 1
+			currentChar := s[i]
+			for i+1 < len(s) && s[i+1] == currentChar {
+				count++
+				i++
+			}
+			for j != count+1 {
+				str += string(currentChar)
+				j++
+			}
+			return str
+		}
+	}
+
+	for in1, val1 := range s {
+		str = string(val1)
+		for _, val2 := range s[in1+1:] {
+			str += string(val2)
+			length := len(str)
+			for i := 0; i <= length/2; i++ {
+				if str[i] != str[length-1-i] {
+					count = 0
+					break
+				} else if str[i] == str[length-1-i] {
+					count++
+					if count+1 == len(str) {
+						return str
+					} else {
+						continue
+					}
+				}
+			}
+		}
+	}
+	return string(s[0])
+}
+
+func reverse(x int) int {
+
+	d := 1
+	if x < -9 {
+		d = -1
+		x *= -1
+	}
+	if x < 10 {
+		return x
+	}
+	var r int
+	for x > 0 {
+		r = r*10 + x%10
+		x /= 10
+	}
+	if r > math.MaxInt32 || r < math.MinInt32 {
+		return 0
+	}
+	return d * r
+
+}
+
+func maxArea(height []int) int {
+	var max, left, t int
+	right := len(height) - 1
+	for left < right {
+		if height[left] < height[right] {
+			t = height[left] * (right - left)
+			left++
+		} else {
+			t = height[right] * (right - left)
+			right--
+		}
+		if t > max {
+			max = t
+		}
+	}
+	return max
+}
+
+func search(nums []int, target int) int {
+	start, end := 0, len(nums)-1
+	for {
+		if start > end {
+			break
+		}
+		mid := (start + end) / 2
+		if nums[mid] == target {
+			return mid
+		}
+		if nums[start] <= nums[mid] {
+			if target >= nums[start] && target < nums[mid] {
+				end = mid - 1
+			} else {
+				start = mid + 1
+			}
+		} else {
+			if target > nums[mid] && target <= nums[end] {
+				start = mid + 1
+			} else {
+				end = mid - 1
+			}
+		}
+	}
+	return -1
+}
+
+func searchRange(nums []int, target int) []int {
+	result := []int{-1, -1}
+	if len(nums) <= 0 {
+		return result
+	}
+
+	start, high := 0, len(nums)-1
+	for start < high {
+		mid := (start + high) / 2
+		if nums[mid] < target {
+			start = mid + 1
+		} else {
+			high = mid
+		}
+	}
+
+	if nums[start] != target {
+		return result
+	}
+
+	result[0] = start
+
+	high = len(nums) - 1
+	for start < high {
+		mid := (start + high + 1) / 2
+		if nums[mid] > target {
+			high = mid - 1
+		} else {
+			start = mid
+		}
+	}
+	result[1] = high
+
+	return result
+}
